@@ -1,49 +1,32 @@
 import React, { useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import Header from './Components/Header';
+import Footer from './Components/Footer';
+import Home from './Components/Home';
+import About from './Components/About';
+import "./App.css"
 
 const App = () => {
-  const api_base_url = 'http://localhost:8000/predict';
-
-  const [image, setImage] = useState(null);
-  const [prediction, setPrediction] = useState('');
-
-  const handleFileChange = (event) => {
-    setImage(event.target.files[0]);
-  };
-
-  const handleSubmit = async () => {
-    if (!image) {
-      alert('Please select an image');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('image', image);
-
-    try {
-      const response = await fetch(api_base_url, {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setPrediction(data.prediction);
-      } else {
-        console.error('Error:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
   return (
-    <div>
-      <h1>Image Classification</h1>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleSubmit}>Predict</button>
-      {prediction && <p>Prediction: {prediction}</p>}
-    </div>
+    <Router>
+      <div className="app-wrapper">
+        <div className="content">
+          <Header />
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/about' element={<About />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
+    </Router>
   );
 };
+
 
 export default App;
