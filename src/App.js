@@ -9,6 +9,7 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Home from './Components/Home';
 import About from './Components/About';
+import Search from './Components/Search';
 import "./App.css"
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/about' element={<About />} />
+            <Route path='/search' element={<Search />} />
           </Routes>
         </div>
         <Footer />
